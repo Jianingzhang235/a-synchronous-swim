@@ -12,5 +12,4 @@ module.exports.router = (req, res, next = ()=>{}) => {
   res.writeHead(200, headers);
   res.randomCommand='up';
   res.end();
-  console.log(res.randomCommand);
 };
