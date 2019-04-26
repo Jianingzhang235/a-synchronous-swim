@@ -48,6 +48,7 @@
   });
 
   $('button').on('click', function(e) {
+    console.log(e);
     e.preventDefault();
     $.ajax({
       type: 'GET',
@@ -56,7 +57,8 @@
       contentType: false,
       processData: false,
       success: (data) => {
-        console.log(data);
+        console.log('success:', data);
+        SwimTeam.move(data);
       },
       error: () => console.log('Couldn\'t get a file')
     });
