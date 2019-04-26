@@ -22,7 +22,11 @@ describe('server responses', () => {
   });
 
   it('should respond to a GET request for a swim command', (done) => {
-    // write your test here
+    let {req, res} = server.mock('/', 'GET');
+    httpHandler.router(req,res);
+    var data = res._data.toString();
+    expect(data).to.exist;
+    expect(data === 'up' || data ==='down' || data ==='left' || data ==='right').to.equal(true);
     done();
   });
 
