@@ -24,9 +24,10 @@ describe('server responses', () => {
   it('should respond to a GET request for a swim command', (done) => {
     let {req, res} = server.mock('/', 'GET');
     httpHandler.router(req,res);
-    var data = res._data.toString();
+    console.log(res._data.toString() + '---------');
+    var data = res._data.toString();//This gets what we write into res.write(<some string>)
     expect(data).to.exist;
-    expect(data === 'up' || data ==='down' || data ==='left' || data ==='right').to.equal(true);
+    expect(data).to.be.oneOf(['up', 'down', 'left', 'right']);
     done();
   });
 

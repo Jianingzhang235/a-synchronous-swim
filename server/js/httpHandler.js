@@ -21,6 +21,8 @@ module.exports.router = (req, res, next = ()=>{}) => {
     //return image as an src
   }
   if (req.method === 'GET'){
+    var command = messagesQueue.dequeue()||'';
+    res.write(command);
     res.end(messagesQueue.dequeue());
   };
 };
