@@ -47,9 +47,24 @@
     ajaxFileUplaod(file);
   });
 
-  $('button').on('click', function(e) {
-    console.log(e);
-    e.preventDefault();
+  // $('button').on('click', function(e) {
+  //   console.log(e);
+  //   e.preventDefault();
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: 'http://127.0.0.1:3000',
+  //     cache: false,
+  //     contentType: false,
+  //     processData: false,
+  //     success: (data) => {
+  //       console.log('success:', data);
+  //       SwimTeam.move(data);
+  //     },
+  //     error: () => console.log('Couldn\'t get a file')
+  //   });
+  // });
+
+  const getQueuedCommands = () => {
     $.ajax({
       type: 'GET',
       url: 'http://127.0.0.1:3000',
@@ -58,9 +73,15 @@
       processData: false,
       success: (data) => {
         console.log('success:', data);
-        SwimTeam.move(data);
+        if (data !== undefined){
+          SwimTeam.move(data);
+        }
       },
       error: () => console.log('Couldn\'t get a file')
     });
-  });
+
+    setTimeout(getQueuedCommands,200);
+  }
+
+  getQueuedCommands();
 })();
