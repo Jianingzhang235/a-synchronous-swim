@@ -17,15 +17,15 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: serverUrl,
+      url: serverUrl + '/background.jpg',
       cache: false,
-      contentType: false,
+      contentType: 'multipart/form-data',
       processData: false,
-      success: () => {
+      success: (data) => {
         // reload the page
         window.location = window.location.href;
       },
-      error: () => console.log('Coudlnt get a file')
+      error: () => console.log('Couldn\'t get a file')
     });
   };
 
@@ -47,37 +47,9 @@
     ajaxFileUplaod(file);
   });
 
-  // $('button').on('click', function(e) {
-  //   console.log(e);
-  //   e.preventDefault();
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: 'http://127.0.0.1:3000',
-  //     cache: false,
-  //     contentType: false,
-  //     processData: false,
-  //     success: (data) => {
-  //       console.log('success:', data);
-  //       SwimTeam.move(data);
-  //     },
-  //     error: () => console.log('Couldn\'t get a file')
-  //   });
-  // });
-
   const getQueuedCommands = () => {
-    $.ajax({
-      type: 'GET',
-      url: 'http://127.0.0.1:3000',
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: (data) => {
-        console.log('success:', data);
-        if (data !== undefined){
-          SwimTeam.move(data);
-        }
-      },
-      error: () => console.log('Couldn\'t get a file')
+    $.get(serverUrl + '/command',(command) => {
+      SwimTeam.move(command);
     });
 
     setTimeout(getQueuedCommands,200);
